@@ -13,11 +13,10 @@ export class SampleDatePickerInline implements OnInit {
 
     private myDatePickerInlineOptions: IMyDpOptions = {
         inline: true,
-        disableUntil: {year: 0, month: 0, day: 0},
-        disableDays: [{year: 0, month: 0, day: 0}],
-        showWeekNumbers: true,
         selectorHeight: '232px',
-        selectorWidth: '252px'
+        selectorWidth: '252px',
+        markCurrentDay: false,
+        showWeekNumbers: true
     };
     private selectedDateInline: Object = {};
 
@@ -124,6 +123,9 @@ export class SampleDatePickerInline implements OnInit {
         console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if(event.formatted !== '') {
             this.selectedTextInline = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
+            if(event.date.week){
+                this.selectedTextInline = 'Week: '+ event.date.week;
+            }
             this.border = '1px solid #CCC';
         }
         else {

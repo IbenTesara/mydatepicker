@@ -310,6 +310,11 @@
     color: #000;
 }
 
+.mydp .daycellweeknbr:hover {
+    background-color: #DDD;
+    cursor: pointer;
+}
+
 .mydp .inlinedp {
     position: relative;
     margin-top: -1px;
