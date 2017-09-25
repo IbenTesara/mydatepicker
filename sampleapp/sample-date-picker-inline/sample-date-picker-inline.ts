@@ -13,10 +13,11 @@ export class SampleDatePickerInline implements OnInit {
 
     private myDatePickerInlineOptions: IMyDpOptions = {
         inline: true,
-        selectorHeight: '232px',
-        selectorWidth: '252px',
+        selectorHeight: '180px',
+        selectorWidth: '180px',
         markCurrentDay: false,
-        showWeekNumbers: true
+        hideMonthArrows: true,
+        hideYearArrows: true
     };
     private selectedDateInline: Object = {};
 

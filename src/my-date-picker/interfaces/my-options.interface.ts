@@ -63,6 +63,8 @@ export interface IMyOptions {
     selectMonthOnly?: boolean;
     selectYearOnly?: boolean;
     selectYearText?: string;
+    hideMonthArrows?: boolean;
+    hideYearArrows?: boolean;
 }
 
 export interface IMyDpOptions extends IMyOptions {}

@@ -67,6 +67,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     invalidDate: boolean = false;
     disableTodayBtn: boolean = false;
     dayIdx: number = 0;
+    currWeek: number = this.utilService.getWeekNumber(this.getToday());
 
     selectMonth: boolean = false;
     selectYear: boolean = false;
@@ -193,7 +194,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     resetMonthYearSelect(): void {
-        this.selectMonth = this.options.selectMonthOnly;
+        this.selectMonth = this.options.selectMonthOnly || false;
         this.selectYear = false;
     }
 
@@ -237,8 +238,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
     }
 
     onWeekCellClicked(nr: number): void {
-        console.log(nr);
-        
         let date: IMyDate = {
             day: 1,
             month: this.visibleMonth.monthNbr,
@@ -247,7 +246,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         };
         let dateModel: IMyDateModel = this.getDateModel(date);
         this.dateChanged.emit(dateModel);
-        
     }
 
     onMonthCellKeyDown(event: any, cell: IMyCalendarMonth) {
@@ -326,7 +324,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     setUpYearSelection() {
         let date = new Date();
-        this.visibleMonth.monthNbr = date.getMonth();
+        this.visibleMonth.monthNbr = date.getMonth()+1;
         this.visibleMonth.year = date.getFullYear();
         this.selectYear = true;
         this.cdr.detectChanges();

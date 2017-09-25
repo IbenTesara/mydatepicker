@@ -35,13 +35,13 @@
             <tr [hidden]="opts.selectYearOnly || opts.selectMonthOnly">
                 <td>
                     <div style="float:left">
-                        <div class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelPrevMonth" class="headerbtn mydpicon icon-mydpleft"
+                        <div  *ngIf="!this.opts.hideMonthArrows"  class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelPrevMonth" class="headerbtn mydpicon icon-mydpleft"
                                 (click)="onPrevMonth()" [disabled]="prevMonthDisabled" [ngClass]="{'headerbtnenabled': !prevMonthDisabled, 'headerbtndisabled': prevMonthDisabled}"></button></div>
                         <div class="headermonthtxt">
                             <button class="headerlabelbtn" [hidden]="selectYearOnly" type="button" [ngClass]="{'monthlabel': opts.monthSelector}" (click)="opts.monthSelector&&onSelectMonthClicked($event)"
                                 tabindex="{{opts.monthSelector?'0':'-1'}}">{{visibleMonth.monthTxt}}</button>
                         </div>
-                        <div class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelNextMonth" class="headerbtn mydpicon icon-mydpright"
+                        <div *ngIf="!this.opts.hideMonthArrows"  class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelNextMonth" class="headerbtn mydpicon icon-mydpright"
                                 (click)="onNextMonth()" [disabled]="nextMonthDisabled" [ngClass]="{'headerbtnenabled': !nextMonthDisabled, 'headerbtndisabled': nextMonthDisabled}"></button></div>
                     </div>
                 </td>
@@ -54,25 +54,23 @@
                 </td>
                 <td>
                     <div style="float:right">
-                        <div class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelPrevYear" class="headerbtn mydpicon icon-mydpleft"
+                        <div *ngIf="!this.opts.hideYearArrows" class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelPrevYear" class="headerbtn mydpicon icon-mydpleft"
                                 (click)="onPrevYear()" [disabled]="prevYearDisabled" [ngClass]="{'headerbtnenabled': !prevYearDisabled, 'headerbtndisabled': prevYearDisabled}"></button></div>
                         <div class="headeryeartxt">
                             <button class="headerlabelbtn" type="button" [ngClass]="{'yearlabel': opts.yearSelector}" (click)="opts.yearSelector&&onSelectYearClicked($event)"
                                 tabindex="{{opts.yearSelector?'0':'-1'}}">{{visibleMonth.year}}</button>
                         </div>
-                        <div class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelNextYear" class="headerbtn mydpicon icon-mydpright"
+                        <div *ngIf="!this.opts.hideYearArrows" class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelNextYear" class="headerbtn mydpicon icon-mydpright"
                                 (click)="onNextYear()" [disabled]="nextYearDisabled" [ngClass]="{'headerbtnenabled': !nextYearDisabled, 'headerbtndisabled': nextYearDisabled}"></button></div>
                     </div>
                 </td>
             </tr>
             <tr [hidden]="!opts.selectYearOnly">
-                <td></td>
-                <td>{{opts.selectYearText}}</td>
-                <td></td>
+                <td style="width:100%; text-align:center">{{opts.selectYearText}}</td>
             </tr>
             <tr [hidden]="!opts.selectMonthOnly">
-                <td>
-                    <div style="padding-left: 35%">
+                <td style="padding-left: 30%">
+                    <div>
                         <div class="headerbtncell"><button type="button" [attr.aria-label]="opts.ariaLabelPrevYear" class="headerbtn mydpicon icon-mydpleft"
                                 (click)="onPrevYear()" [disabled]="prevYearDisabled" [ngClass]="{'headerbtnenabled': !prevYearDisabled, 'headerbtndisabled': prevYearDisabled}"></button></div>
                         <div class="headeryeartxt">
@@ -85,7 +83,7 @@
                 </td>
             </tr>
         </table>
-        <table class="caltable" *ngIf="!selectMonth&&!selectYear">
+        <table class="caltable" *ngIf="!selectMonth&&!selectYear && !this.opts.selectYearOnly">
             <thead>
                 <tr>
                     <th class="weekdaytitle weekdaytitleweeknbr" *ngIf="opts.showWeekNumbers&&opts.firstDayOfWeek==='mo'">#</th>
@@ -93,7 +91,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let w of dates">
+                <tr *ngFor="let w of dates" [ngClass]="{'currweek': w.weekNbr === currWeek}">
                     <td (click)="onWeekCellClicked(w.weekNbr)" class="daycell daycellweeknbr" *ngIf="opts.showWeekNumbers&&opts.firstDayOfWeek==='mo'">{{w.weekNbr}}</td>
                     <td class="daycell" *ngFor="let d of w.week" [ngClass]="{'currmonth':d.cmo===currMonthId&&!d.disabled, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===currMonthId, 'disabled': d.disabled, 'tablesingleday': d.cmo===currMonthId&&!d.disabled}"
                         (click)="!d.disabled&&onCellClicked(d);$event.stopPropagation()" (keydown)="onCellKeyDown($event, d)"
@@ -117,7 +115,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="yeartable" *ngIf="selectYear">
+        <table class="yeartable" *ngIf="selectYear||this.opts.selectYearOnly">
             <tbody>
                 <tr>
                     <td colspan="5" class="yearchangebtncell" (click)="$event.stopPropagation()">
