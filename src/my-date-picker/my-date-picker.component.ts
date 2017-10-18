@@ -532,6 +532,8 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             this.visibleMonth.monthTxt = this.opts.monthLabels[this.visibleMonth.monthNbr];
             this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year, false);
         }
+
+        this.cdr.detectChanges();
     }
 
     removeBtnClicked(): void {
