@@ -167,15 +167,15 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     setOptions(): void {
         if (this.options !== undefined) {
+            Object.keys(this.options).forEach((k) => {
+                (<IMyOptions>this.opts)[k] = this.options[k];
+            });
             if (this.options.selectMonthOnly) {
                 this.setUpMonthSelection();
             }
             if (this.options.selectYearOnly) {
                 this.setUpYearSelection();
             }
-            Object.keys(this.options).forEach((k) => {
-                (<IMyOptions>this.opts)[k] = this.options[k];
-            });
         }
         if (this.opts.minYear < Year.min) {
             this.opts.minYear = Year.min;
@@ -328,17 +328,20 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.visibleMonth.monthNbr = date.getMonth()+1;
         this.visibleMonth.year = date.getFullYear();
         this.selectYear = true;
+        this.selectMonth = false;
         this.cdr.detectChanges();
         if (this.selectYear) {
             this.generateYears(this.visibleMonth.year);
         }
-
     }
 
     setUpMonthSelection() {
+        let date = new Date();
+        this.visibleMonth.monthNbr = date.getMonth()+1;
+        this.visibleMonth.year = date.getFullYear();
         this.selectYear = false;
-        this.cdr.detectChanges();
         this.selectMonth = true;
+        this.cdr.detectChanges();
         if (this.selectMonth) {
             let today: IMyDate = this.getToday();
             this.months.length = 0;
