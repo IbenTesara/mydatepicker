@@ -16,6 +16,7 @@ export interface IMyOptions {
     sunHighlight?: boolean;
     highlightDates?: Array<IMyDate>;
     markCurrentDay?: boolean;
+    markCurrentWeek?: boolean;
     markCurrentMonth?: boolean;
     markCurrentYear?: boolean;
     disableUntil?: IMyDate;
@@ -60,6 +61,7 @@ export interface IMyOptions {
     ariaLabelNextMonth?: string;
     ariaLabelPrevYear?: string;
     ariaLabelNextYear?: string;
+    selectWeekOnly?: boolean;
     selectMonthOnly?: boolean;
     selectYearOnly?: boolean;
     selectYearText?: string;
