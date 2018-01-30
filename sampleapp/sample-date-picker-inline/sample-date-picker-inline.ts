@@ -17,7 +17,8 @@ export class SampleDatePickerInline implements OnInit {
         selectorWidth: '180px',
         markCurrentDay: false,
         hideMonthArrows: true,
-        hideYearArrows: true
+        hideYearArrows: true,
+        selectMonthOnly: true
     };
     private selectedDateInline: Object = {};
 
