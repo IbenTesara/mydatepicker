@@ -818,9 +818,6 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 	}
 
 	generateCalendar(m: number, y: number, notifyChange: boolean): void {
-		console.log('Month', m);
-		console.log('Year', y);
-
 		m = y < new Date().getFullYear() ? 12 : m;
 
 		this.dates.length = 0;
