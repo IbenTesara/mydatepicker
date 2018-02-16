@@ -19,7 +19,8 @@
     "build.webpack.sampleapp": "rimraf build-sampleapp && webpack --config config/webpack.build.sampleapp.js --progress --profile --bail",
     "test": "karma start config/karma.conf.js",
     "tslint": "gulp tslint",
-    "ngc": "ngc -p tsconfig.publish.json",
+		"ngc": "ngc -p tsconfig.publish.json",
+		"package": "npm run build.dist && cd npmdist && npm pack && cd ../",
     "bundle": "rollup -c rollup.config.js && uglifyjs npmdist/bundles/mydatepicker.umd.js --compress --mangle --screw-ie8 -o npmdist/bundles/mydatepicker.umd.min.js"
   },
   "main": "bundles/mydatepicker.umd.js",
