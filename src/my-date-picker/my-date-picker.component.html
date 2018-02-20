@@ -91,7 +91,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let w of dates" [ngClass]="{'currweek': w.weekNbr === currWeek, 'selectedweek': opts.selectWeekOnly && w.weekNbr===selDate.week}">
+                <tr *ngFor="let w of dates" [ngClass]="{'currweek': isCurrentWeek(w), 'selectedweek': isSelectedWeek(w)}">
                     <td (click)="!w.week[0].disabled&&onWeekCellClicked(w)" class="daycell daycellweeknbr" *ngIf="opts.showWeekNumbers&&opts.firstDayOfWeek==='mo'">{{w.weekNbr}}</td>
                     <td class="daycell" *ngFor="let d of w.week" [ngClass]="{'currmonth':d.cmo===currMonthId&&!d.disabled, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===currMonthId && !opts.selectWeekOnly, 'disabled': d.disabled, 'tablesingleday': d.cmo===currMonthId&&!d.disabled}"
                         (click)="!d.disabled&&onCellClicked(d);$event.stopPropagation()" (keydown)="onCellKeyDown($event, d)"
